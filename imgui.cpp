@@ -1082,7 +1082,7 @@ void ImGuiIO::AddInputCharacterUTF16(ImWchar16 c)
     {
         if ((c & 0xFC00) != 0xDC00) // Invalid low surrogate
             InputQueueCharacters.push_back(0xFFFD);
-        else if (IM_UNICODE_MAX_CODEPOINT == 0x10000) // Codepoint will not fit in ImWchar
+        else if (IM_UNICODE_MAX_CODEPOINT == (0x10000)) // Codepoint will not fit in ImWchar (extra parenthesis around 0x10000 somehow fix -Wunreachable-code with Clang)
             cp = 0xFFFD;
         else
             cp = (ImWchar)(((InputQueueSurrogate - 0xD800) << 10) + (c - 0xDC00) + 0x10000);
